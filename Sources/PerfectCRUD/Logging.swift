@@ -46,13 +46,13 @@ public enum CRUDLogDestination {
 		case .none:
 			()
 		case .console:
-			print("\(event)")
+			NSLog("\(event)")
 		case .file(let name):
 			let fm = FileManager()
 			guard fm.isWritableFile(atPath: name) || fm.createFile(atPath: name, contents: nil, attributes: nil),
 				let fileHandle = FileHandle(forWritingAtPath: name),
 				let data = "\(event)\n".data(using: .utf8) else {
-				print("[ERR] Unable to open file at \"\(name)\" to log event \(event)")
+				NSLog("[ERR] Unable to open file at \"\(name)\" to log event \(event)")
 				return
 			}
 			defer {
